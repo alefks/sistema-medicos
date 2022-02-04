@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SENHA_DOCKER}
+      MYSQL_DATABASE: sistema-medicos
+    ports:
+      - "3307:3306"
+    volumes:
+      - $HOME/Desktop/MySQL-Snippets/sistema-medicos.sql:/sistema-medicos.sql
