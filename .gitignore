@@ -4,7 +4,6 @@
 
 # db config
 .env
-docker-compose.yml
 
 # Logs
 logs
