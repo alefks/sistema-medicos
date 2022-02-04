@@ -1,5 +1,5 @@
 import {
-  IsAlpha,
+  ArrayMinSize,
   IsInt,
   IsNotEmpty,
   IsNumberString,
@@ -8,7 +8,6 @@ import {
 
 export class CreateMedicoDto {
   @IsNotEmpty({ message: 'Insira um nome.' })
-  @IsAlpha()
   nome: string;
 
   @IsNotEmpty({ message: 'Insira o seu CRM.' })
@@ -24,7 +23,8 @@ export class CreateMedicoDto {
   telefone_celular: string;
 
   @IsInt({ each: true })
-  especialidade: number[];
+  @ArrayMinSize(2)
+  especialidades: number[];
 
   @IsNumberString()
   cep: string;
