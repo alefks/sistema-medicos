@@ -7,7 +7,7 @@ import { CreateMedicoDto } from './dto/create-medico.dto';
 import { UpdateMedicoDto } from './dto/update-medico.dto';
 import { fetch } from 'cross-fetch';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { medico, prisma, Prisma } from '@prisma/client';
+import { medico, Prisma } from '@prisma/client';
 
 @Injectable()
 export class MedicoService {
@@ -40,21 +40,7 @@ export class MedicoService {
   async create(dto: CreateMedicoDto) {
     const { cep } = dto;
 
-    // funcao para verificar a resposta da requisicao
-    const isOk = (response) => {
-      if (response.ok) {
-        return response.json();
-      }
-    };
-
-    // essa const guarda o objeto que retornara da api viacep
-    const cepData = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(
-      isOk,
-    );
-
-    if (cepData.erro) {
-      throw new NotFoundException('CEP não existente.');
-    }
+    const cepData = await this.dadosCep(cep);
 
     if (cepData) {
       try {
