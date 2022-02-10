@@ -6,7 +6,7 @@ import {
 import { CreateMedicoDto } from './dto/create-medico.dto';
 import { UpdateMedicoDto } from './dto/update-medico.dto';
 import { fetch } from 'cross-fetch';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { medico, Prisma } from '@prisma/client';
 
 @Injectable()
