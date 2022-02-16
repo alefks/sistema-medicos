@@ -5,11 +5,20 @@ import { MedicoService } from './medico.service';
 describe('MedicoController', () => {
   let controller: MedicoController;
 
+  const mockMedicoService = {
+    create: jest.fn((dto) => {
+      return null;
+    }),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MedicoController],
       providers: [MedicoService],
-    }).compile();
+    })
+      .overrideProvider(MedicoService)
+      .useValue(mockMedicoService)
+      .compile();
 
     controller = module.get<MedicoController>(MedicoController);
   });
