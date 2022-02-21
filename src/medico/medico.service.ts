@@ -35,8 +35,6 @@ export class MedicoService {
     return cepData1;
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-
   async create(dto: CreateMedicoDto) {
     const { cep } = dto;
 
@@ -68,16 +66,12 @@ export class MedicoService {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-
   async findAll(): Promise<medico[]> {
     return await this.prisma.medico.findMany({
       where: { deletado: false },
       include: { especialidades: true },
     });
   }
-
-  ////////////////////////////////////////////////////////////////////////////
 
   async idVerification(medicoId: number) {
     if (isNaN(medicoId) == true) {
@@ -101,13 +95,9 @@ export class MedicoService {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-
   async findOne(medicoId: number) {
     return await this.idVerification(medicoId);
   }
-
-  ////////////////////////////////////////////////////////////////////////////
 
   async update(medicoid: number, dto: UpdateMedicoDto) {
     const verificarId = await this.idVerification(medicoid);
@@ -170,8 +160,6 @@ export class MedicoService {
 
     await this.prisma.medico.update({ where: { id: medicoid }, data });
   }
-
-  ////////////////////////////////////////////////////////////////////////////
 
   async softDelete(medicoId: number) {
     const verificarId = await this.idVerification(medicoId);
