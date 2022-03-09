@@ -4,7 +4,7 @@ services:
     image: mysql:5
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${SENHA_DOCKER}
+      MYSQL_ROOT_PASSWORD: ${SENHA_ROOT}
       MYSQL_DATABASE: sistema-medicos
     ports:
       - "3307:3306"
