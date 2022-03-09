@@ -13,32 +13,32 @@ import { medico, Prisma } from '@prisma/client';
 export class MedicoService {
   constructor(private prisma: PrismaService) {}
 
-  async dadosCep(numeroCep: string) {
+  async getDadosCep(numeroCep: string) {
     const isOk = (response) => {
       if (response.ok) {
         return response.json();
       }
     };
 
-    const cepData1 = await fetch(
+    const cepDataObject = await fetch(
       `https://viacep.com.br/ws/${numeroCep}/json/`,
     ).then(isOk);
 
-    if (!cepData1) {
+    if (!cepDataObject) {
       throw new NotFoundException(
         'Por favor, digite o CEP no formato de 8 digitos.',
       );
-    } else if (cepData1.erro) {
+    } else if (cepDataObject.erro) {
       throw new BadRequestException('Por favor, digite um CEP existente.');
     }
 
-    return cepData1;
+    return cepDataObject;
   }
 
   async create(dto: CreateMedicoDto) {
     const { cep } = dto;
 
-    const cepData = await this.dadosCep(cep);
+    const cepData = await this.getDadosCep(cep);
 
     if (cepData) {
       try {
@@ -134,7 +134,7 @@ export class MedicoService {
     }
 
     if (dto.cep) {
-      const infoCep = await this.dadosCep(dto.cep);
+      const infoCep = await this.getDadosCep(dto.cep);
 
       const data: Prisma.medicoUpdateInput = {
         ...dto,
